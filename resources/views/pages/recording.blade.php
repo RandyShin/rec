@@ -2,14 +2,10 @@
 
 {{--@section('title', '| Recording')--}}
 
-@section('stylesheets')
-
-
-    {{ Html::style('css/bootstrap-datepicker.css') }}
-
-@endsection
 
     @section('content')
+
+
         <div class="row">
         <div class="col-md-14">
         <div class="panel panel-default">
@@ -17,80 +13,54 @@
             <div class="panel-body">
                 <!-- src 검색창 -->
 
+                    <div class="row col-md-12">
 
 
-
-
-
-                <tr>
-                    <td></td>
-                    <div class="row">
-                    <div class="col-me-4">
                         {!! Form::open(['method' => 'GET', 'url' => 'recording', 'class' => 'navbar-form navbar-left', 'role' => 'search']) !!}
-                        {{--{!! Form::label('name', '발신번호: ') !!}--}}
-                        <div class = "input-group custom-search-form">
-                            <input type="text", name="src", class="form-control", placeholder="발신번호">
-                            <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default-sm">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+
+
+                        <div class="row">
+                            <div class="col-md-2" style="width: 200px;">
+                                {{ Form::text('datefrom', null, ['class' => 'form-control', 'id' => 'datepicker1', 'placeholder' => 'From']) }}
+                            </div>
+
+                            <div class="col-md-2" style="width: 200px; margin-left: 20px">
+                                {{ Form::text('dateto', null, ['class' => 'form-control', 'id' => 'datepicker2', 'placeholder' => 'To']) }}
+                            </div>
+
+
                         </div>
+                        <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-2">
+                            {{ Form::text('src', null, ['class' => 'form-control', 'placeholder' => "발신번호"]) }}
+                        </div>
+
+                        <div class="col-md-2">
+                            {{ Form::text('dst', null, ['class' => 'form-control', 'placeholder' => "착신번호"]) }}
+                        </div>
+
+
+                        <div class="col-md-2">
+                            {{ Form::select('disposition', ['ANSWERED' => 'ANSWERED', 'NO ANSWER' => 'NO ANSWER', 'FAILED' => 'FAILED',
+                            'BUSY' => 'BUSY', 'CONGESTION' => 'CONGESTION'], null, ['class' => 'form-control', 'placeholder' => '통화결과']) }}
+                        </div>
+
+
+                        <div class="col-md-2">
+                            {{ Form::submit('검  색', ['class' => 'btn btn-success']) }}
+                        </div>
+                        </div>
+
+
                         {!! Form::close() !!}
                     </div>
 
-                        <div class="col-me-4">
-                            {!! Form::open(['method' => 'GET', 'url' => 'recording', 'class' => 'navbar-form navbar-left', 'role' => 'search']) !!}
-                            {{--{!! Form::label('name', '발신번호: ') !!}--}}
-                            <div class = "input-group custom-search-form">
-                                <input type="text", name="dst", class="form-control", placeholder="착신번호">
-                                <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default-sm">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                            </div>
-                            {!! Form::close() !!}
-                        </div>
 
-
-
-
-
-
-                        <div class="btn-group dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                Dropdown
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                            </ul>
-                        </div>
-
-
-
-                        <title>jQuery UI Datepicker - Default functionality</title>
-                        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-                        <link rel="stylesheet" href="/resources/demos/style.css">
-                        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-                        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
-                        <p>Date: <input type="text" id="datepicker"></p>
-
-
-
-
-                </div>
                 <!-- src 검색창 -->
-                </tr>
-            </div>
+
+
         </div> <!-- end of .row -->
-        </div>
+
         </div>
 
 
@@ -162,15 +132,19 @@
 
 
             </table>
+
             <div class="row">
                 <div class="col-md-14">
                     <div class="text-center">
-                        {!! $cdrs->appends(Input::all())->render() !!}
+                        {{ $cdrs->appends(Input::all())->render() }}
                         {{--$recordings->appends(Input::all())->render();--}}
 
                     </div>
                 </div>
             </div>
+
+
+
         </div>
         </div>
 
@@ -184,16 +158,6 @@
     @endsection
 
 
-@section('scripts')
-
-
-    <script type="text/javascript">
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
-    </script>
 
 
 
-
-@endsection
